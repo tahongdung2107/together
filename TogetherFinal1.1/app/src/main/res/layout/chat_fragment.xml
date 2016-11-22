@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.MainFragment">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/gridviewChat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.87"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
+        >
+    </android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/edtMessage"
+            android:layout_weight="1"
+            android:imeOptions="actionSend"
+            android:inputType="textMultiLine" />
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="5dp"
+            android:id="@+id/sendTextImage"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/ic_chat" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/green"
+        android:alpha="0.9">
+        <ImageView
+            android:id="@+id/imgSelectImage"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_photo"
+            />
+        <ImageView
+            android:id="@+id/imgVoice"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_mic"
+            android:clickable="true"/>
+    </LinearLayout>
+</LinearLayout>

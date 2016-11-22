@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Comunity"
+        android:id="@+id/nav_item_comunity"
+        android:icon="@drawable/ic_menu_send"/>
+    <item android:title="Game"
+        android:id="@+id/nav_item_game"
+        android:icon="@drawable/ic_menu_send"/>
+
+    <item android:title="Messages"
+        android:id="@+id/nav_item_messages"
+        android:icon="@drawable/ic_menu_send"/>
+
+        <item android:title="My profile"
+            android:id="@+id/nav_item_myprofile"
+            android:icon="@drawable/ic_menu_send"/>
+    <item android:title="Setting"
+        android:id="@+id/nav_item_setting"
+        android:icon="@drawable/ic_menu_send"/>
+        <item android:title="Logout"
+            android:id="@+id/nav_item_logout"
+            android:icon="@drawable/ic_menu_share"/>
+</menu>
