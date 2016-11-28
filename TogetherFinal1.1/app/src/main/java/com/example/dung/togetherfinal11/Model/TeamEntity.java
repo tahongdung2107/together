@@ -9,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class TeamEntity extends RealmObject {
     @PrimaryKey
-    private String Id;
+    private String Idteam;
     private String Title;
     private String member1_id;
     private String member2_id;
@@ -38,8 +38,8 @@ public class TeamEntity extends RealmObject {
     public TeamEntity() {
     }
 
-    public TeamEntity(String id, String title, String member1_id, String member2_id, String member3_id, String member1_join_date, String member2_join_date, String member3_join_date, String member1_leave_date, String member2_leave_date, String member3_leave_date, String toeic_level_id, String category_id, String avatar, String created_datetime, String updated_datetime, String member1_name, String member1_created_date, String member1_avatar, String member2_name, String member2_created_date, String member2_avatar, String member3_name, String member3_created_date, String member3_avatar) {
-        Id = id;
+    public TeamEntity(String idteam, String title, String member1_id, String member2_id, String member3_id, String member1_join_date, String member2_join_date, String member3_join_date, String member1_leave_date, String member2_leave_date, String member3_leave_date, String toeic_level_id, String category_id, String avatar, String created_datetime, String updated_datetime, String member1_name, String member1_created_date, String member1_avatar, String member2_name, String member2_created_date, String member2_avatar, String member3_name, String member3_created_date, String member3_avatar) {
+        Idteam = idteam;
         Title = title;
         this.member1_id = member1_id;
         this.member2_id = member2_id;
@@ -67,11 +67,11 @@ public class TeamEntity extends RealmObject {
     }
 
     public String getId() {
-        return Id;
+        return Idteam;
     }
 
     public void setId(String id) {
-        Id = id;
+        Idteam = id;
     }
 
     public String getTitle() {

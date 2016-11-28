@@ -692,9 +692,9 @@ public class TogetherXMPP implements ConnectionListener, ChatManagerListener, Ch
                             Log.d("UpdateMessage", " Result :" + chatMessage.getText_content() + "Reaml");
                             messages.setMissMessage(0);
                             messages.setType(chatMessage.getMedia_type());
-//                            realm.beginTransaction();
-//                            realm.copyToRealmOrUpdate(messages);
-//                            realm.commitTransaction();
+                            realm.beginTransaction();
+                            realm.copyToRealmOrUpdate(messages);
+                            realm.commitTransaction();
                             Log.d("QUAdayroidungk", "uk" + realmMessage);
                             if (realmMessage == null) {
 

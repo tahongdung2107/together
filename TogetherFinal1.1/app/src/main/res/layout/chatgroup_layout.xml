@@ -53,6 +53,13 @@
         android:background="@color/green"
         android:alpha="0.9">
         <ImageView
+            android:id="@+id/imgInvite"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_chatgroup"
+            android:clickable="true"/>
+        <ImageView
             android:id="@+id/imgSelectImage"
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -65,5 +72,6 @@
             android:layout_margin="5dp"
             android:src="@drawable/ic_mic"
             android:clickable="true"/>
+
     </LinearLayout>
 </LinearLayout>

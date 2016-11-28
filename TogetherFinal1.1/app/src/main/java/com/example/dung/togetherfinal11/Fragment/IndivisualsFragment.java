@@ -72,9 +72,9 @@ public class IndivisualsFragment extends Fragment {
         swipeRefreshIndividual = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         Intent intent = new Intent(getActivity(), MyService.class);
         getActivity().startService(intent);
-        refreshIndividual();
         GetUsersByPage();
         setEventGridView();
+        refreshIndividual();
         return view;
     }
 
@@ -106,9 +106,7 @@ public class IndivisualsFragment extends Fragment {
                     Log.d("IndividualFragment", "initData arrList: " + arrUser.size());
                     swipeRefreshIndividual.setRefreshing(false);
                     if (arrUser.size() > 0) {
-                        realm.beginTransaction();
-                        realm.deleteAll();
-                        realm.commitTransaction();
+                        RealmController.getInstance().clearAll(UserEntity.class.getSimpleName());
                         lstUser.clear();
                         lstUser.addAll(arrUser);
                         for (UserEntity userEntity : arrUser) {

@@ -7,6 +7,9 @@ package com.example.dung.togetherfinal11.Config;
  */
 public class Config {
     public static String USER_ID = "";
+    public static String NAME_USER = "";
+    public static String AVATAR_USER = "";
+    public static int IDBUTTON = 0;
     public static String TOKEN = "";
     public static String TeamID = "";
     public static String UserName = "";

@@ -9,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
 /**
  * Created by dung on 04/08/2016.
  */
-public class UserEntity extends RealmObject{
+public class UserEntity extends RealmObject implements Parcelable {
     @PrimaryKey
     private String Id;
     private String username;
@@ -22,14 +22,17 @@ public class UserEntity extends RealmObject{
     private String team_id;
     private String created_datetime;
     private String updated_datetime;
+    private boolean invite;
+
 
     public UserEntity() {
+        this.invite = true;
     }
 
-    public UserEntity(String username, String birthday, String id, String gender, String avatar, String quote, String goal, String toeic_level_id, String team_id, String created_datetime, String updated_datetime) {
+    public UserEntity(String id, String username, String birthday, String gender, String avatar, String quote, String goal, String toeic_level_id, String team_id, String created_datetime, String updated_datetime, Boolean invite) {
+        Id = id;
         this.username = username;
         this.birthday = birthday;
-        Id = id;
         this.gender = gender;
         this.avatar = avatar;
         this.quote = quote;
@@ -38,6 +41,15 @@ public class UserEntity extends RealmObject{
         this.team_id = team_id;
         this.created_datetime = created_datetime;
         this.updated_datetime = updated_datetime;
+        this.invite = invite;
+    }
+
+    public Boolean getInvite() {
+        return invite;
+    }
+
+    public void setInvite(Boolean invite) {
+        this.invite = invite;
     }
 
     public String getId() {
@@ -127,4 +139,52 @@ public class UserEntity extends RealmObject{
     public void setUpdated_datetime(String updated_datetime) {
         this.updated_datetime = updated_datetime;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.Id);
+        dest.writeString(this.username);
+        dest.writeString(this.birthday);
+        dest.writeString(this.gender);
+        dest.writeString(this.avatar);
+        dest.writeString(this.quote);
+        dest.writeString(this.goal);
+        dest.writeString(this.toeic_level_id);
+        dest.writeString(this.team_id);
+        dest.writeString(this.created_datetime);
+        dest.writeString(this.updated_datetime);
+        dest.writeByte(this.invite ? (byte) 1 : (byte) 0);
+    }
+
+    protected UserEntity(Parcel in) {
+        this.Id = in.readString();
+        this.username = in.readString();
+        this.birthday = in.readString();
+        this.gender = in.readString();
+        this.avatar = in.readString();
+        this.quote = in.readString();
+        this.goal = in.readString();
+        this.toeic_level_id = in.readString();
+        this.team_id = in.readString();
+        this.created_datetime = in.readString();
+        this.updated_datetime = in.readString();
+        this.invite = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<UserEntity> CREATOR = new Parcelable.Creator<UserEntity>() {
+        @Override
+        public UserEntity createFromParcel(Parcel source) {
+            return new UserEntity(source);
+        }
+
+        @Override
+        public UserEntity[] newArray(int size) {
+            return new UserEntity[size];
+        }
+    };
 }

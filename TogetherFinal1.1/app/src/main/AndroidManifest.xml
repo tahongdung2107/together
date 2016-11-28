@@ -19,6 +19,9 @@
         </activity>
         <activity android:name=".SignupActivity" />
         <activity android:name=".Navigation"></activity>
+        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".InviteActivity"></activity>
+        <activity android:name=".ChatGroupActivity"></activity>
     </application>
 
 </manifest>

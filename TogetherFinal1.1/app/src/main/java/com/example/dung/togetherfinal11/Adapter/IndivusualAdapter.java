@@ -2,7 +2,6 @@ package com.example.dung.togetherfinal11.Adapter;
 
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -16,13 +15,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.dung.togetherfinal11.Fragment.ChatFragment;
-import com.example.dung.togetherfinal11.Interface.LoadMoreRecyclerViewAdapter;
+import com.example.dung.togetherfinal11.ChatActivity;
+import com.example.dung.togetherfinal11.Model.ChatModel;
+import com.example.dung.togetherfinal11.Model.Messages;
 import com.example.dung.togetherfinal11.Model.UserEntity;
 import com.example.dung.togetherfinal11.R;
+import com.example.dung.togetherfinal11.Realm.RealmController;
 
 import java.util.ArrayList;
 
@@ -36,6 +36,7 @@ import io.realm.RealmResults;
 public class IndivusualAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<UserEntity> mitemList;
     protected Context mContext;
+    Realm realm;
 
     public IndivusualAdapter(Context context, ArrayList<UserEntity> itemList) {
         mContext = context;
@@ -60,12 +61,19 @@ public class IndivusualAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             userViewHolder.image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ChatFragment chatFragment = new ChatFragment();
-                    FragmentManager manager = ((Activity) mContext).getFragmentManager();
-                    FragmentTransaction fragmentTransaction = manager.beginTransaction();
-                    fragmentTransaction.replace(android.R.id.content, chatFragment);
-                    fragmentTransaction.commit();
-
+                    Intent intent = new Intent(mContext, ChatActivity.class);
+                    realm = RealmController.getInstance().getRealm();
+                    RealmController.getInstance().refresh();
+                    String user_id_to = mitemList.get(position).getId();
+                    String image_to = mitemList.get(position).getAvatar();
+                    String name_to = mitemList.get(position).getUsername();
+//                    RealmResults<Messages> realmResultsMessage = RealmController.getInstance().getMessageuserTo(user_id_to);
+                    Bundle bundle = new Bundle();
+                        bundle.putString("ImageMessage", image_to);
+                        bundle.putString("NameMessage", name_to);
+                        bundle.putString("User_Id_To", user_id_to);
+                    intent.putExtras(bundle);
+                    mContext.startActivity(intent);
 //                    realm = Realm.getDefaultInstance();
 //                    String user_id_to = mitemList.get(position).getId();
 //                    String image_to = mitemList.get(position).getImage();

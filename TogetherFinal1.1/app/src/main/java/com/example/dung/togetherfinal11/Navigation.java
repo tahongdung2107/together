@@ -6,17 +6,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
+
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 
+
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,8 +30,10 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.dung.togetherfinal11.Chat.MyService;
 import com.example.dung.togetherfinal11.Config.Config;
 import com.example.dung.togetherfinal11.Fragment.ComunityFragment;
+import com.example.dung.togetherfinal11.Model.Messages;
 import com.example.dung.togetherfinal11.Model.Sreach_text;
 import com.example.dung.togetherfinal11.Realm.RealmController;
 import com.example.dung.togetherfinal11.SharedPreferences.AppPreference;
@@ -57,6 +63,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     TextView nameNav;
     ImageView imageNav;
     String name , image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,8 +97,8 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                         public void onClick(DialogInterface dialog, int which) {
                             preference = new AppPreference(getApplicationContext());
                             preference.clear();
-                            RealmController.getInstance().clearAll();
-////                          stopService(new Intent(getBaseContext(),MyService.class));
+                            RealmController.getInstance().delete();
+//                          stopService(new Intent(getBaseContext(),MyService.class));
                             Intent intent = new Intent(getApplication(), Login.class);
                             startActivity(intent);
                             finish();
@@ -141,6 +148,8 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
          JSONObject jsonObjProfile = jsonObjUser.getJSONObject(PROFILE);
          name = jsonObjProfile.getString(USERNAME);
          image = jsonObjProfile.getString(AVATAR);
+         Config.NAME_USER = name;
+         Config.AVATAR_USER = image;
          nameNav.setText(name);
          Glide.with(getApplication()).load(image).asBitmap().into(imageNav);
      } catch (JSONException e) {

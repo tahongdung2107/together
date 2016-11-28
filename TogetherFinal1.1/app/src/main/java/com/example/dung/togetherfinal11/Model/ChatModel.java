@@ -8,7 +8,6 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class ChatModel extends RealmObject {
-    @PrimaryKey
     private String message_uuid;
     private String from;
     private String type;
