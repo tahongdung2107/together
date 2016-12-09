@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +56,7 @@ public class ProfileFragment extends Fragment {
             username = jsonProfile.getString("username");
             wordcategory = jsonProfile.getString("word_category");
             nickname = jsonProfile.getString("nickname");
+            email = jsonProfile.getString("email");
             gender = jsonProfile.getString("gender");
             quote = jsonProfile.getString("quote");
             goal = jsonProfile.getString("goal");
@@ -72,6 +74,8 @@ public class ProfileFragment extends Fragment {
             Goal.setText(goal);
             Toiec.setText(toiec);
             Birthday.setText(birthday);
+            Email.setText(email);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -82,13 +86,27 @@ public class ProfileFragment extends Fragment {
         inflater.inflate(R.menu.menu_profile,menu);
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.action_edit_profile){
+            EditProfileFragment editProfileFragment = new EditProfileFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(Config.KEY_BUNDLE_username,username);
+            bundle.putString(Config.KEY_BUNDLE_wordcategory,wordcategory);
+            bundle.putString(Config.KEY_BUNDLE_nickname,nickname);
+            bundle.putString(Config.KEY_BUNDLE_gender,gender);
+            bundle.putString(Config.KEY_BUNDLE_quote,quote);
+            bundle.putString(Config.KEY_BUNDLE_goal,goal);
+            bundle.putString(Config.KEY_BUNDLE_toiec,toiec);
+            bundle.putString(Config.KEY_BUNDLE_birthday,birthday);
+            bundle.putString(Config.KEY_BUNDLE_email,email);
+            editProfileFragment.setArguments(bundle);
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-            fragmentTransaction.replace(R.id.container_profile, new EditProfileFragment());
+            fragmentTransaction.replace(R.id.container_profile, editProfileFragment);
             fragmentTransaction.commit();
         }
         return super.onOptionsItemSelected(item);

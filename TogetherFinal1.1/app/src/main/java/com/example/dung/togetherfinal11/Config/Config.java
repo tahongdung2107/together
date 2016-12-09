@@ -30,4 +30,13 @@ public class Config {
     public static final String KEY_GOAL = "goal";
     public static final String LIMIT = "limit";
     public static final String PAGE = "page";
+    public static final String KEY_BUNDLE_username= "BundleUsername";
+    public static final String KEY_BUNDLE_wordcategory= "BundleWordcategory";
+    public static final String KEY_BUNDLE_nickname= "BundleNickname";
+    public static final String KEY_BUNDLE_gender= "BundleGender";
+    public static final String KEY_BUNDLE_quote= "BundleQuote";
+    public static final String KEY_BUNDLE_goal= "BundleGoal";
+    public static final String KEY_BUNDLE_toiec= "BundleToiec";
+    public static final String KEY_BUNDLE_birthday= "BundleBirthday";
+    public static final String KEY_BUNDLE_email= "BundleEmail";
 }

@@ -10,6 +10,7 @@ import com.example.dung.togetherfinal11.Interface.IInfoUserListener;
 import com.example.dung.togetherfinal11.Interface.ITeamListener;
 import com.example.dung.togetherfinal11.Interface.IUserListener;
 import com.example.dung.togetherfinal11.Interface.ModelManagerListener;
+import com.example.dung.togetherfinal11.Login;
 import com.example.dung.togetherfinal11.Model.TeamEntity;
 import com.example.dung.togetherfinal11.Model.UserEntity;
 import com.example.dung.togetherfinal11.SharedPreferences.AppPreference;
@@ -32,6 +33,16 @@ public class ModelManager {
     private final String _TOKEN = "_token";
     private final String PAGE = "page";
     private final String LIMIT = "limit";
+    //
+    private final String NICKNAMEUPDATE = "nickname";
+    private final String GENDERUPDATE = "gender";
+    private final String BIRTHDAYUPDATE = "birthday";
+    private final String QUOTEUPDATE = "quote";
+    private final String GOALUPDATE = "goal";
+    private final String WORDCATEGORY = "word_category";
+    private final String EMAILUPDATE = "email";
+    private final String TOIECUPDATE = "toeic_level_id";
+    //
     String DATA = "data";
     String USER = "user";
     String PROFILE = "profile";
@@ -143,7 +154,47 @@ public class ModelManager {
                     }
                 });
     }
+    public  void updateUser(String url, String genderUpdate , String birthdayUpdate,
+                            String quoteUpdate , String goalUpdate , String wordcategory , String emailUpdate, String toiecUpdate
+                            , final ModelManagerListener modelManagerListener
+                            ){
+        Ion.with(context).load(url)
+                .setBodyParameter(_USER_ID,Config.USER_ID)
+                .setBodyParameter(_TOKEN,Config.TOKEN)
+                .setBodyParameter(GENDERUPDATE,genderUpdate)
+                .setBodyParameter(BIRTHDAYUPDATE,birthdayUpdate)
+                .setBodyParameter(QUOTEUPDATE,quoteUpdate)
+                .setBodyParameter(GOALUPDATE,goalUpdate)
+                .setBodyParameter(WORDCATEGORY,wordcategory)
+                .setBodyParameter(EMAILUPDATE,emailUpdate)
+                .setBodyParameter(TOIECUPDATE,toiecUpdate)
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        if (e==null && result!=null){
+                            try {
+                                JSONObject json = new JSONObject(result);
+                                modelManagerListener.onSuccess(json);
+//                                login(ConfigsApi.LOGIN_URL, preference.getUsername(), preference.getPassword(), new ModelManagerListener() {
+//                                    @Override
+//                                    public void onSuccess(JSONObject response) {
+//
+//                                    }
+//
+//                                    @Override
+//                                    public void onError(String error) {
+//
+//                                    }
+//                                });
+                            } catch (JSONException e1) {
+                                e1.printStackTrace();
+                            }
 
+                        }
+                    }
+                });
+    }
     public  void getInfoUser(String url , String from_id , final IInfoUserListener iInfoUserListener){
         Ion.with(context).load(url)
                 .setBodyParameter(_USER_ID, Config.USER_ID)
