@@ -2,8 +2,12 @@ package com.example.dung.togetherfinal11.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +19,13 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.dung.togetherfinal11.Model.ChatModel;
 import com.example.dung.togetherfinal11.Model.GroupChatMessage;
 import com.example.dung.togetherfinal11.Model.Messages;
 import com.example.dung.togetherfinal11.R;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,6 +42,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int Messages = 2;
     Matcher m;
     Pattern p;
+    String contentModel;
     Handler myHandler = new Handler();
 
     @Override
@@ -78,9 +85,73 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 ChatAdapter.ChatViewHolder chatgroupViewHolder = (ChatAdapter.ChatViewHolder) holder;
                 break;
             case Chatmodel:
-                ChatAdapter.ChatViewHolder chatmodelViewHolder = (ChatAdapter.ChatViewHolder) holder;
+                final ChatAdapter.ChatViewHolder chatmodelViewHolder = (ChatAdapter.ChatViewHolder) holder;
                 String contentModel = ((ChatModel) mObjects.get(position)).getText_content();
                 chatmodelViewHolder.chat.setText(contentModel);
+                 contentModel = ((ChatModel) mObjects.get(position)).getText_content();
+                if (isValidUrl(contentModel)){
+                    if (contentModel.endsWith(".mp3")){
+                        chatmodelViewHolder.parent_layoutaudio.setVisibility(View.VISIBLE);
+                        chatmodelViewHolder.chat.setVisibility(View.GONE);
+                        chatmodelViewHolder.imagesend.setVisibility(View.GONE);
+                        final MediaPlayer player = new MediaPlayer();
+                        final Runnable mUpdateTimeTask=new Runnable() {
+                            @Override
+                            public void run() {
+                                double percentage = 0;
+                                long totalDuration = player.getDuration();
+                                long currentDuration = player.getCurrentPosition();
+                                Log.d("Custom CurrentTime " , "Result :" +"///////"+ totalDuration + "/" + (currentDuration% (1000*60*60)) % (1000*60) / 1000);
+                                chatmodelViewHolder.txtCurrentTime.setText((int)((currentDuration % (1000*60*60)) % (1000*60) / 1000)+"");
+                                long currentSeconds = (int) (currentDuration / 1000);
+                                long totalSeconds = (int) (totalDuration / 1000);
+                                percentage =(((double)currentSeconds)/totalSeconds)*100;
+                                Log.d("TestCustom","Result :" + percentage);
+                                chatmodelViewHolder.seekBarTimeAudio.setProgress((int) percentage);
+                                myHandler.postDelayed(this, 100);
+                            }
+                        };
+                        try {
+                            player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                            player.setDataSource(contentModel);
+                            player.prepare();
+                            Log.d("URLAudio",contentModel);
+                            chatmodelViewHolder.btnPlayAudioChat.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if (player.isPlaying()) {
+                                        player.pause();
+                                        chatmodelViewHolder.btnPlayAudioChat.setImageResource(R.drawable.ic_action_playback_play);
+                                    } else {
+                                        player.start();
+                                        chatmodelViewHolder.btnPlayAudioChat.setImageResource(R.drawable.ic_action_playback_pause);
+                                    }
+                                    player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                        @Override
+                                        public void onCompletion(MediaPlayer mp) {
+                                            chatmodelViewHolder.btnPlayAudioChat.setImageResource(R.drawable.ic_action_playback_play);
+                                        }
+                                    });
+                                    myHandler.postDelayed(mUpdateTimeTask,100);
+                                }
+                            });
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }else {
+                        chatmodelViewHolder.parent_layoutaudio.setVisibility(View.GONE);
+                        chatmodelViewHolder.chat.setVisibility(View.GONE);
+                        chatmodelViewHolder.imagesend.setVisibility(View.VISIBLE);
+                        Glide.with(mContext).load(contentModel).asBitmap().into(chatmodelViewHolder.imagesend);
+                    }
+                }else {
+                    chatmodelViewHolder.parent_layoutaudio.setVisibility(View.GONE);
+                    chatmodelViewHolder.chat.setVisibility(View.VISIBLE);
+                    chatmodelViewHolder.imagesend.setVisibility(View.GONE);
+                    chatmodelViewHolder.chat.setText(contentModel);
+                }
+
                 if (((ChatModel) mObjects.get(position)).isMine()) {
                     chatmodelViewHolder.chat.setBackgroundResource(R.drawable.bubble2);
                     chatmodelViewHolder.parent_layout.setGravity(Gravity.RIGHT);
@@ -122,23 +193,29 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public class ChatViewHolder extends RecyclerView.ViewHolder {
         TextView chat;
         LinearLayout parent_layout;
-        ImageView iconchatleft , iconchatright;
-//        ImageButton btnPlayAudioChat;
-//        SeekBar seekBarTimeAudio ;
-//        TextView txtCurrentTime ;
-//        LinearLayout parent_layoutaudio , getParent_layoutaudioChild;
+        ImageView iconchatleft , iconchatright , imagesend ;
+        ImageButton btnPlayAudioChat;
+        SeekBar seekBarTimeAudio ;
+        TextView txtCurrentTime ;
+        LinearLayout parent_layoutaudio ;
         public ChatViewHolder(View itemView) {
             super(itemView);
             chat = (TextView) itemView.findViewById(R.id.textViewChat);
             iconchatleft = (ImageView) itemView.findViewById(R.id.iconLeft);
             iconchatright = (ImageView) itemView.findViewById(R.id.iconRight);
+            imagesend = (ImageView) itemView.findViewById(R.id.imageSend);
             parent_layout = (LinearLayout) itemView
                     .findViewById(R.id.items_chat);
-//            parent_layoutaudio = (LinearLayout) itemView.findViewById(R.id.pair_chat_layout_parent);
+            parent_layoutaudio = (LinearLayout) itemView.findViewById(R.id.pair_chat_layout_parent);
 //            getParent_layoutaudioChild = (LinearLayout) itemView.findViewById(R.id.pair_chat_layout_child);
-//            btnPlayAudioChat = (ImageButton) itemView.findViewById(R.id.btnPlayAudioChat);
-//            seekBarTimeAudio = (SeekBar) itemView.findViewById(R.id.seekBarTimeAudio);
-//            txtCurrentTime = (TextView) itemView.findViewById(R.id.txtCurrentTime);
+            btnPlayAudioChat = (ImageButton) itemView.findViewById(R.id.btnPlayAudioChat);
+            seekBarTimeAudio = (SeekBar) itemView.findViewById(R.id.seekBarTimeAudio);
+            txtCurrentTime = (TextView) itemView.findViewById(R.id.txtCurrentTime);
         }
+    }
+    private boolean isValidUrl(String url) {
+        p = Patterns.WEB_URL;
+        m = p.matcher(url.toLowerCase());
+        return m.matches();
     }
 }

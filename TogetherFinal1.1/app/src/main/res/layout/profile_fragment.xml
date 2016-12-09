@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll_net"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Default"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/black">
+        </TextView>
+
+        <TextView
+            android:id="@+id/txtWordCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"
+            android:drawableLeft="@drawable/ic_settings"
+            android:drawablePadding="5dp"
+            android:text="Default"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtNickName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"
+            android:drawableLeft="@drawable/ic_settings"
+            android:drawablePadding="5dp"
+            android:text="Default"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"
+            android:drawableLeft="@drawable/ic_settings"
+            android:drawablePadding="5dp"
+            android:text="tahongdung2107@gmail.com"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtBirthDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_action_camera"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="Default"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"
+            android:drawableLeft="@drawable/ic_gender"
+            android:drawablePadding="5dp"
+            android:text="Male"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/txtQuote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"
+            android:drawableLeft="@drawable/ic_manual"
+            android:drawablePadding="5dp"
+            android:text="Favourite quote, status ..etc"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/txtGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"
+            android:drawableLeft="@drawable/ic_manual"
+            android:drawablePadding="5dp"
+            android:text="My goal is ..(express about yourself and your goal in learing English!)"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/txtLvToic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="3dp"
+            android:drawableLeft="@drawable/ic_user"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="Intermediate (TOEIC 600~700)"
+            android:textSize="16sp"
+            android:visibility="visible" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

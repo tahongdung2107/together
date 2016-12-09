@@ -32,44 +32,57 @@ public class MessageFragment extends Fragment {
     View view;
     RecyclerView recyclerViewMessager;
     Realm realm;
-    String user_toid,user_fromid;
+    String user_toid, user_fromid;
     private List<Object> mData = new ArrayList<>();
     private SwipeRefreshLayout swipeRefreshMessager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         view = inflater.inflate(R.layout.messager_layout, container, false);
+        view = inflater.inflate(R.layout.messager_layout, container, false);
         recyclerViewMessager = (RecyclerView) view.findViewById(R.id.gridviewMessager);
         setData();
-        return  view;
+        return view;
     }
-    private void setData(){
+
+    private void setData() {
         realm = RealmController.getInstance().getRealm();
         RealmController.getInstance().refresh();
-//        RealmResults<Messages> realmResults = RealmController.getInstance().getMessageuserTo(Config.USER_ID);
-        RealmResults<Messages> realmResultsText = RealmController.getInstance().getMessageuserType();
-        RealmResults<Messages> realmResultsInvite = RealmController.getInstance().getMessageuserInvite();
         RealmResults<Messages> realmResultsmessage = RealmController.getInstance().getMessages();
-
-        RealmResults<TeamEntity> resultsTeam = RealmController.getInstance().getTeams();
-        RealmResults<ChatModel> realmResultsmodel = RealmController.getInstance().getModel();
-        Log.d("LoadDataMessager","Result :" + realmResultsmessage);
-
-        MessagerAdapter adapter = new MessagerAdapter(getActivity(), mData);
-        mData.clear();
-        //
         for (int i = 0; i < realmResultsmessage.size(); i++) {
             user_toid = realmResultsmessage.get(i).getToID();
             user_fromid = realmResultsmessage.get(i).getFromID();
         }
-            if (user_toid.equals(Config.USER_ID)){
-                mData.addAll(realmResultsText);
-                recyclerViewMessager.setAdapter(adapter);
-                recyclerViewMessager.setLayoutManager(new LinearLayoutManager(getContext()));
-            }else if (user_fromid.equals(Config.USER_ID)){
-                mData.addAll(realmResultsText);
-                mData.addAll(realmResultsInvite);
-                recyclerViewMessager.setAdapter(adapter);
-                recyclerViewMessager.setLayoutManager(new LinearLayoutManager(getContext()));
-            }
+//        RealmResults<Messages> realmResults = RealmController.getInstance().getMessageuserTo(Config.USER_ID);
+        RealmResults<Messages> realmResultsText = RealmController.getInstance().getMessageuserType();
+        RealmResults<Messages> realmResultsInvite = RealmController.getInstance().getMessageuserInvite();
+
+        RealmResults<TeamEntity> resultsTeam = RealmController.getInstance().getTeams();
+        RealmResults<ChatModel> realmResultsmodel = RealmController.getInstance().getModel();
+
+
+        Log.d("LoadDataMessager", "Result :" + realmResultsmessage);
+
+        MessagerAdapter adapter = new MessagerAdapter(getActivity(), mData);
+        mData.clear();
+        //
+        if (user_toid == null) {
+            mData.addAll(realmResultsText);
+            recyclerViewMessager.setAdapter(adapter);
+            recyclerViewMessager.setLayoutManager(new LinearLayoutManager(getContext()));
+        } else if (user_fromid == null) {
+            mData.addAll(realmResultsText);
+            mData.addAll(realmResultsInvite);
+            recyclerViewMessager.setAdapter(adapter);
+            recyclerViewMessager.setLayoutManager(new LinearLayoutManager(getContext()));
+        } else if (user_toid.equals(Config.USER_ID)) {
+            mData.addAll(realmResultsText);
+            recyclerViewMessager.setAdapter(adapter);
+            recyclerViewMessager.setLayoutManager(new LinearLayoutManager(getContext()));
+        } else if (user_fromid.equals(Config.USER_ID)) {
+            mData.addAll(realmResultsText);
+            mData.addAll(realmResultsInvite);
+            recyclerViewMessager.setAdapter(adapter);
+            recyclerViewMessager.setLayoutManager(new LinearLayoutManager(getContext()));
+        }
     }
 }

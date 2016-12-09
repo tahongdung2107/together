@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.dung.togetherfinal11.Chat.MyService;
+import com.example.dung.togetherfinal11.Config.Config;
 import com.example.dung.togetherfinal11.Model.ChatModel;
 import com.example.dung.togetherfinal11.Model.Messages;
 import com.example.dung.togetherfinal11.Model.TeamEntity;
@@ -19,6 +21,7 @@ import com.example.dung.togetherfinal11.R;
 import com.example.dung.togetherfinal11.Realm.RealmController;
 
 import java.util.List;
+import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -33,8 +36,9 @@ public class MessagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public static final int INDIVISUAL = 2;
     public static final int TEAM = 0;
     public static final int MESSAGER = 1;
-    String type,content,name,image,namefault,imagedefault,user_id_to;
+    String type,content,name,image,namefault,imagedefault,user_id_to,contentaccep;
     Realm realm;
+    MyService myService;
     @Override
     public int getItemViewType(int position) {
         if (mObjects.get(position) instanceof TeamEntity)
@@ -110,11 +114,38 @@ public class MessagerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         namefault = "Dung";
                         messageViewHolder.nameUser.setText(namefault);
                     }
+                    messageViewHolder.accept.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            int location = (int) view.getTag();
+                            user_id_to = ((Messages) mObjects.get(location)).getFromID();
+                            contentaccep = "Accept to team";
+                            ChatModel chatModel = new ChatModel();
+                            chatModel.setFrom(Config.USER_ID);
+                            chatModel.setType("accept_to_team");
+                            chatModel.setMessage_uuid(UUID.randomUUID().toString());
+                            chatModel.setRecipient_type("User");
+                            chatModel.setMedia_type("accept_to_team");
+                            chatModel.setTo(user_id_to);
+                            chatModel.setRecipient_id(user_id_to);
+                            chatModel.setText_content(contentaccep);
+                            chatModel.setMsg(contentaccep);
+                            chatModel.setMsgID("123");
+                            chatModel.setToeic_level("432");
+                            chatModel.setTeam_id(Config.TeamID);
+                            chatModel.setUser_id(Config.USER_ID);
+                            chatModel.setAvatar(Config.AVATAR_USER);
+                            chatModel.setName(Config.UserName);
+                            chatModel.setMine(true);
+                            myService.xmpp.sendMessage(chatModel);
+                        }
+                    });
                     messageViewHolder.cancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             int location = (int) view.getTag();
                             user_id_to = ((Messages) mObjects.get(location)).getFromID();
+
                             realm = RealmController.getInstance().getRealm();
                             RealmController.getInstance().refresh();
                             RealmResults<ChatModel> realmResultsModel = RealmController.getInstance().getmediatype("invite_to_team",user_id_to);

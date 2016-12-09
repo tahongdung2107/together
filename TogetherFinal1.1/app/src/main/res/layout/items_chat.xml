@@ -25,6 +25,12 @@
             android:padding="6dp"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"/>
+        <ImageView
+            android:id="@+id/imageSend"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            />
     </LinearLayout>
     <ImageView
         android:id="@+id/iconRight"
@@ -32,5 +38,7 @@
         android:layout_height="40dp"
         android:layout_gravity="right"
         android:src="@drawable/ic_avatar" />
-    <!--<include layout="@layout/item_chat_audio"/>-->
+    <include layout="@layout/itemchat_audio"
+            android:visibility="gone"
+        />
 </LinearLayout>

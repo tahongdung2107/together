@@ -1,5 +1,6 @@
 package com.example.dung.togetherfinal11;
 
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,11 +29,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.dung.togetherfinal11.Chat.MyService;
 import com.example.dung.togetherfinal11.Config.Config;
 import com.example.dung.togetherfinal11.Fragment.ComunityFragment;
+import com.example.dung.togetherfinal11.Fragment.IndivisualsFragment;
+import com.example.dung.togetherfinal11.Fragment.MainFragment;
+import com.example.dung.togetherfinal11.Fragment.ProfileFragment;
 import com.example.dung.togetherfinal11.Model.Messages;
 import com.example.dung.togetherfinal11.Model.Sreach_text;
 import com.example.dung.togetherfinal11.Realm.RealmController;
@@ -111,10 +116,10 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                     .show();
         }
 
-//        if (item.getItemId() == R.id.nav_item_inbox) {
-////                    FragmentTransaction xfragmentTransaction = mFragmentManager.beginTransaction();
-////                    xfragmentTransaction.replace(R.id.containerView,new TabFragment()).commit();
-//        }
+        if (item.getItemId() == R.id.nav_item_myprofile) {
+            Intent intent = new Intent(getApplication(),MainFragment.class);
+            startActivity(intent);
+        }
         return false;
     }
     private void sreach(){

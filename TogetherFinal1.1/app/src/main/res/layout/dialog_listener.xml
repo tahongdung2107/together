@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/relativeMedia"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_micr_record"
+        android:id="@+id/imageView" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0:0"
+            android:id="@+id/txtCurrentTime"
+            android:layout_gravity="left" />
+        <SeekBar
+            android:layout_width="230dp"
+            android:layout_height="30dp"
+            android:id="@+id/seekBarTimeAudio"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0:0"
+            android:id="@+id/txtTotalTime"
+           android:layout_gravity="right"/>
+    </LinearLayout>
+
+
+    <ImageButton
+        android:background="@drawable/border_circle"
+        android:id="@+id/btnPlay"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:foregroundGravity="center"
+        android:paddingLeft="5dp"
+        android:text="Play"
+        android:src="@drawable/ic_chat"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>
