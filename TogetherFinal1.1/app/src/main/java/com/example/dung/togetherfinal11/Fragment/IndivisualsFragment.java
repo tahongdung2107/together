@@ -178,7 +178,6 @@ public class IndivisualsFragment extends Fragment {
         Log.d("Search :", "Result :" + sreach_text);
         lstUser.clear();
         String sreach = sreach_text.getSreach();
-//        RealmResults<UserEntity> realmSreach = realm.where(UserEntity.class).contains("Name", sreach).findAll();
         RealmResults<UserEntity> realmSreach = RealmController.getInstance().getName(sreach);
         lstUser.addAll(realmSreach);
         adapterIndivisual.notifyDataSetChanged();

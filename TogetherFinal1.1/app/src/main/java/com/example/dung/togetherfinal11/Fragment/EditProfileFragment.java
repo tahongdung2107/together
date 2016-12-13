@@ -27,6 +27,7 @@ import com.example.dung.togetherfinal11.Config.ModelManager;
 import com.example.dung.togetherfinal11.Interface.ModelManagerListener;
 import com.example.dung.togetherfinal11.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -86,6 +87,7 @@ public class EditProfileFragment extends Fragment {
 
     }
     private void updateProfile (){
+        Editnickname = Nickname.getText().toString();
         Editwordcategory = Wordcategory.getText().toString();
         Editemail = Email.getText().toString();
         checkgender();
@@ -97,7 +99,20 @@ public class EditProfileFragment extends Fragment {
                 Editwordcategory, Editemail, Edittoiec, new ModelManagerListener() {
                     @Override
                     public void onSuccess(JSONObject response) {
+                        ModelManager.getInstance(getActivity()).login(ConfigsApi.LOGIN_URL, Config.UserName, Config.PassWord, new ModelManagerListener() {
+                            @Override
+                            public void onSuccess(JSONObject response) {
+                                FragmentManager fragmentManager = getFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                                fragmentTransaction.replace(R.id.container_profile,new ProfileFragment());
+                                fragmentTransaction.commit();
+                            }
+                            @Override
+                            public void onError(String error) {
 
+                            }
+                        });
                     }
 
                     @Override
@@ -158,13 +173,6 @@ public class EditProfileFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.action_save_profile){
             updateProfile();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-            fragmentTransaction.replace(R.id.container_profile, new ProfileFragment());
-            fragmentTransaction.commit();
-
-
         }
         return super.onOptionsItemSelected(item);
     }

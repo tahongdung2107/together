@@ -103,6 +103,7 @@ public class ModelManager {
                                 }
                             } catch (JSONException e1) {
                                 e1.printStackTrace();
+
                             }
                         }
                     }
@@ -176,17 +177,6 @@ public class ModelManager {
                             try {
                                 JSONObject json = new JSONObject(result);
                                 modelManagerListener.onSuccess(json);
-//                                login(ConfigsApi.LOGIN_URL, preference.getUsername(), preference.getPassword(), new ModelManagerListener() {
-//                                    @Override
-//                                    public void onSuccess(JSONObject response) {
-//
-//                                    }
-//
-//                                    @Override
-//                                    public void onError(String error) {
-//
-//                                    }
-//                                });
                             } catch (JSONException e1) {
                                 e1.printStackTrace();
                             }
@@ -228,7 +218,7 @@ public class ModelManager {
                             UserEntity userEntity = new UserEntity();
                             userEntity.setId(object.getString("id"));
                             userEntity.setAvatar(object.getString("avatar"));
-                            userEntity.setUsername(object.getString("name"));
+                            userEntity.setUsername(object.getString("username"));
                             userEntity.setQuote(object.getString("quote"));
                             userEntity.setGoal(object.getString("goal"));
                             userEntity.setToeic_level_id(object.getString("toeic_level_id"));

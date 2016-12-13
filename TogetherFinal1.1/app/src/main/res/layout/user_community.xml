@@ -37,7 +37,6 @@
                 android:id="@+id/textviewNameUSerindivisual"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="aaaaa"
                 android:layout_below="@id/imgUserindivisual"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />

@@ -134,7 +134,7 @@ public class RealmController {
         return realm.where(UserEntity.class).findAll();
     }
     public  RealmResults<UserEntity> getName(String name){
-        return realm.where(UserEntity.class).contains("Name",name ).findAll();
+        return realm.where(UserEntity.class).contains("username",name).findAll();
     }
 
 //    public RealmResults<Invite> getInvite(){

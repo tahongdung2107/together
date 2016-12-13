@@ -1,7 +1,6 @@
 package com.example.dung.togetherfinal11;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,7 +12,7 @@ public class MainLogin extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.main_fragment);
         Intent intent = new Intent(getApplication(),Login.class);
         startActivity(intent);
     }

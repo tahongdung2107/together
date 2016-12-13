@@ -28,8 +28,9 @@ import org.json.JSONObject;
 
 public class ProfileFragment extends Fragment {
     View view;
-    TextView Username,Wordcategory,Nickname,Email,Gender,Quote,Goal,Toiec,Birthday;
-    String username,wordcategory,nickname,email,gender,quote,goal,toiec,birthday;
+    TextView Username, Wordcategory, Nickname, Email, Gender, Quote, Goal, Toiec, Birthday;
+    String username, wordcategory, nickname, email, gender, quote, goal, toiec, birthday;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.profile_fragment, container, false);
@@ -47,7 +48,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private  void setDataProfile(){
+    private void setDataProfile() {
         try {
             JSONObject json = new JSONObject(Config.Profile);
             JSONObject jsonData = json.getJSONObject("data");
@@ -65,9 +66,9 @@ public class ProfileFragment extends Fragment {
             Username.setText(username);
             Wordcategory.setText(wordcategory);
             Nickname.setText(nickname);
-            if (gender.equals(0)){
+            if (gender.equals(0)) {
                 Gender.setText("Male");
-            }else if (gender.equals(1)){
+            } else if (gender.equals(1)) {
                 Gender.setText("Female");
             }
             Quote.setText(quote);
@@ -80,28 +81,28 @@ public class ProfileFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_profile,menu);
+        inflater.inflate(R.menu.menu_profile, menu);
     }
-
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==R.id.action_edit_profile){
+        if (item.getItemId() == R.id.action_edit_profile) {
             EditProfileFragment editProfileFragment = new EditProfileFragment();
             Bundle bundle = new Bundle();
-            bundle.putString(Config.KEY_BUNDLE_username,username);
-            bundle.putString(Config.KEY_BUNDLE_wordcategory,wordcategory);
-            bundle.putString(Config.KEY_BUNDLE_nickname,nickname);
-            bundle.putString(Config.KEY_BUNDLE_gender,gender);
-            bundle.putString(Config.KEY_BUNDLE_quote,quote);
-            bundle.putString(Config.KEY_BUNDLE_goal,goal);
-            bundle.putString(Config.KEY_BUNDLE_toiec,toiec);
-            bundle.putString(Config.KEY_BUNDLE_birthday,birthday);
-            bundle.putString(Config.KEY_BUNDLE_email,email);
+            bundle.putString(Config.KEY_BUNDLE_username, username);
+            bundle.putString(Config.KEY_BUNDLE_wordcategory, wordcategory);
+            bundle.putString(Config.KEY_BUNDLE_nickname, nickname);
+            bundle.putString(Config.KEY_BUNDLE_gender, gender);
+            bundle.putString(Config.KEY_BUNDLE_quote, quote);
+            bundle.putString(Config.KEY_BUNDLE_goal, goal);
+            bundle.putString(Config.KEY_BUNDLE_toiec, toiec);
+            bundle.putString(Config.KEY_BUNDLE_birthday, birthday);
+            bundle.putString(Config.KEY_BUNDLE_email, email);
             editProfileFragment.setArguments(bundle);
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -111,5 +112,4 @@ public class ProfileFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

@@ -39,4 +39,5 @@ public class Config {
     public static final String KEY_BUNDLE_toiec= "BundleToiec";
     public static final String KEY_BUNDLE_birthday= "BundleBirthday";
     public static final String KEY_BUNDLE_email= "BundleEmail";
+
 }
